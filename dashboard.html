@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"href="dashboard.css"/>
+    <title>Document</title>
+</head>
+<body>
+    <div id="links">
+        <div><a href="dashboard.html">Dashboard</a></div>
+        <div><a href="home.html">Home</a></div>
+    
+    <div id="batch">
+        <div id="b1">Batch01</div>
+        <div id="bar">|</div>
+        <div id="b2">Batch02</div>
+    </div>
+    </div>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Image</th>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Unit</th>
+                    <th>Batch</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--- Append your output to tbody-->
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
+<script>
+    var detailsOfStudent=JSON.parse(localStorage.getItem("details"));
+    displayData(detailsOfStudent);
+    function displayData(data){
+        var count1=0;
+        var count2=0;
+
+        data.forEach(function(elem,i){
+        var R1=document.createElement("tr");
+
+        var c1=document.createElement("img");
+        c1.setAttribute("src",elem.imgurl)
+
+        var c2=document.createElement("td");
+        c2.innerText=elem.name;
+        c2.style.fontWeight="bold";
+
+        var c4=document.createElement("td");
+        c4.innerText=elem.course;
+        c4.style.fontFamily="sans-serif";
+
+        var c5=document.createElement("td");
+        c5.innerText=elem.unit;
+        c5.style.fontFamily="sans-serif";
+
+        var c6=document.createElement("td");
+        c6.innerText=elem.batch;
+        c6.style.fontFamily="sans-serif";
+
+        if(elem.batch =="Batch01")
+        {
+            count1++;
+        }
+        else if(elem.batch =="Batch02")
+        {
+            count2++;
+        }
+
+        var b1=document.querySelector("#b1").innerText=`Batch01:${count1}`;
+
+        var b2=document.querySelector("#b2").innerText=`Batch02:${count2}`;
+
+
+
+        var c7=document.createElement("td");
+        c7.innerText="Remove";
+        c7.style.fontFamily="sans-serif";
+        c7.style.color="red";
+        c7.style.cursor="pointer";
+        c7.addEventListener("click",function(elem,i){
+            remove(elem,i)
+        })
+
+        R1.append(c1,c2,c4,c5,c6,c7);
+        document.querySelector("tbody").append(R1); 
+
+        });
+
+       function remove(elem,i){
+
+        detailsOfStudent.splice(i,1);
+
+        localStorage.setItem("details",JSON.stringify(detailsOfStudent));
+        window.location.reload();
+        
+       }
+
+
+
+    }
+
+</script>

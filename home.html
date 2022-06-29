@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet"href="home.css"/>
+    <title>Document</title>
+</head>
+<body>
+    <div id="links">
+        <div><a href="home.html">Home</a></div>
+        <div><a href="dashboard.html">Dashboard</a></div>
+    </div>
+    <h1>STUDENT DETAILS</h1>
+    <form id="form">
+        <input type="text"placeholder="Enter your name"id="name">
+        <select id="course">
+            <option>DSA</option>
+            <option>Coading</option>
+        </select>
+        <select id="unit">
+            <option>unit-1</option>
+            <option>unit-2</option>
+            <option>unit-3</option>
+            <option>unit-4</option>
+        </select> 
+        <input type="url"placeholder="Enter your ImageUrl"id="imgurl"/>
+        <select id="batch">
+            <option>Batch01</option>
+            <option>Batch02</option>
+        </select>
+        <input type="submit"value="Submit">       
+        </form>    
+    
+</body>
+</html>
+<script>
+    var form=document.querySelector("#form").addEventListener("submit",myFun)
+    function myFun(){
+        event.preventDefault();
+        var name=document.querySelector("#name").value;
+
+        var course=document.querySelector("#course").value;
+
+        var unit=document.querySelector("#unit").value;
+
+        var imgurl=document.querySelector("#imgurl").value;
+
+        var batch=document.querySelector("#batch").value;
+        var studentarr=JSON.parse(localStorage.getItem("details")) || [];
+        function student(name,course,unit,imgurl,batch){
+            this.name=name;
+            this.course=course;
+            this.unit=unit;
+            this.imgurl=imgurl;
+            this.batch=batch;
+
+        }
+        var studentObj=new student(name,course,unit,imgurl,batch);
+        studentarr.push(studentObj);
+        console.log(studentarr);
+        localStorage.setItem("details",JSON.stringify(studentarr));
+        window.location.href="dashboard.html";
+    }
+</script>    
